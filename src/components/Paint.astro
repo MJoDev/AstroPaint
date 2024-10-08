@@ -1,0 +1,112 @@
+---
+import feather from 'feather-icons';
+import Eraser from '../icons/eraser.astro';
+import Pencil from '../icons/pencil.astro';
+---
+
+<div class="paint-container">
+  <div class="toolbar">
+    <button id="pencil" class="tool-button" title="Pencil">
+      <Pencil></Pencil>
+    </button>
+    <button id="eraser" class="tool-button" title="Eraser">
+      <Eraser></Eraser>
+    </button>
+    <input type="color" id="color-picker" value="#000000" title="Color Picker">
+    <select id="line-width" title="Line Width">
+      <option value="1">1px</option>
+      <option value="3">3px</option>
+      <option value="5">5px</option>
+      <option value="10">10px</option>
+    </select>
+    <button id="clear" class="tool-button" title="Clear Canvas">
+      <Fragment set:html={feather.icons['trash-2'].toSvg()} />
+    </button>
+    <div class="canvas-size">
+      <label for="canvas-width">Width:</label>
+      <input type="number" id="canvas-width" value="800" min="100" max="1000">
+      <label for="canvas-height">Height:</label>
+      <input type="number" id="canvas-height" value="600" min="100" max="1000">
+      <button id="resize-canvas" class="tool-button" title="Resize Canvas">
+        <Fragment set:html={feather.icons.maximize.toSvg()} />
+      </button>
+    </div>
+  </div>
+  <canvas id="paint-canvas" width="800" height="600"></canvas>
+</div>
+
+<script src="../paint.js"></script>
+
+<style>
+  .paint-container {
+    background-color: #f0f0f0;
+    border: 1px solid #999;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  .toolbar {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    background-color: #e0e0e0;
+    padding: 5px;
+    border-radius: 3px;
+    flex-wrap: wrap;
+  }
+  .toolbar button, .toolbar select, .toolbar input {
+    margin-right: 5px;
+  }
+  .tool-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 3px;
+    transition: background-color 0.3s;
+  }
+  .tool-button:hover {
+    background-color: #d0d0d0;
+  }
+  .tool-button svg {
+    width: 20px;
+    height: 20px;
+  }
+  #color-picker {
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+  #line-width {
+    padding: 5px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+  }
+  #paint-canvas {
+    background-color: white;
+    border: 1px solid #ccc;
+    cursor: crosshair;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 3px;
+    max-width: 100%;
+  }
+  .canvas-size {
+    display: flex;
+    align-items: center;
+  }
+  .canvas-size input[type="number"] {
+    width: 60px;
+    margin: 0 5px;
+    padding: 3px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+  }
+  .canvas-size label {
+    margin-left: 10px;
+  }
+</style>
